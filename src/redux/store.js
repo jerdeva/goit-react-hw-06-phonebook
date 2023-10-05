@@ -24,3 +24,7 @@ export const store = configureStore({
 });
 
 export const persistor = persistStore(store);
+
+export const getContacts = state => state.contacts;
+export const getFilter = state => state.filter.inputValue;
+

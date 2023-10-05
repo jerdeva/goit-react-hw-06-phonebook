@@ -46,9 +46,9 @@ export const App = () => {
   };
     
 
-     const searchContact = event => {
-    setFilter(event.currentTarget.value);
-  };
+  //    const searchContact = event => {
+  //   setFilter(event.currentTarget.value);
+  // };
     
     const showList = contacts.filter(contact => 
         contact.name.toLowerCase().includes(filter.toLowerCase())
@@ -60,7 +60,9 @@ export const App = () => {
         <h1>Phonebook</h1>
         <FormPhonebook onAdd={addContact} />
         <h2>Contacts:</h2>
-        <FilterForm filter={filter} onSearch={searchContact} />
+        <FilterForm
+          // filter={filter} onSearch={searchContact}
+        />
         <ContactsList filterList={showList} deleteContact={deleteContact} />
       </div>
     );
