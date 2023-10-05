@@ -1,13 +1,23 @@
-import Wrapper from './ContactInfo.styled'
+// import Wrapper from './ContactInfo.styled'
+import { useDispatch } from 'react-redux';
+import { deleteContact } from '../../redux/contactsSlice';
 
 
-const ContactInfo = ({ contact: { id, name, number }, onDelete }) => {
+
+
+function ContactInfo({ contact }) {
+  const dispatch = useDispatch();
+
+  const deliteContacts = () => {
+    dispatch(deleteContact(contact.id))
+  }
+
   return (
-    <Wrapper>
-      <p>Name: {name}</p>
-      <p>Number: {number}</p>
-      <button onClick={() => onDelete(id)}>Delete</button>
-    </Wrapper>
+    <li>
+      <p>Name: {contact.name}</p>
+      <p>Number: {contact.number}</p>
+      <button onClick={deliteContacts}>Delete</button>
+    </li>
   );
 };
 

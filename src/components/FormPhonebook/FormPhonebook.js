@@ -4,74 +4,83 @@ import { addContact } from '../../redux/contactsSlice';
 
 
 export function FormPhonebook() {
-  const dispatch = useDispatch;
-  const contacts = useSelector(state => state.contacts);
+ const dispatch = useDispatch();
+ const contacts = useSelector(state => state.contacts);
 
-  const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
+ const [name, setName] = useState('');
+ const [number, setNumber] = useState('');
 
-  const hundlerChangeName = event => {
-    setName(event.target.value);
-  };
+ const handleNameChange = event => {
+   setName(event.target.value);
+ };
 
-  const handlerChangeNumber = event => {
-    setNumber(event.target.value);
-  };
+ const handleNumberChange = event => {
+   setNumber(event.target.value);
+ };
 
-  const handlerSubmit = event => {
-    event.preventDefault();
+ const handleSubmit = event => {
+   event.preventDefault();
 
-    if (name.trim() === '' || number.trim === '') {
-      return;
-    }
+   if (name.trim() === '' || number.trim() === '') {
+     return;
+   }
 
-    const isExistName = contacts.find(
-      contact => contact.name.toLowerCase() === name.toLowerCase()
-    );
-    if (isExistName) {
-      alert(`${name} is already in Phonebook.`);
-      return;
-    }
+   const isContactExist = contacts.find(
+     contact => contact.name.toLowerCase() === name.toLowerCase()
+   );
 
-    const isExistNumber = contacts.find(
-      contact => contact.number.replace(/\D/g, '') === number.replace(/\D/g, '')
-    );
-    if (isExistNumber) {
-      alert(`${number} is already in Phonebook.`);
-      return;
-    }
+   if (isContactExist) {
+  window.alert(
+       'Alert',
+       `Contact with name ${name} already exists!`,
+       'Ok'
+     );
+     return;
+   }
 
-    dispatch(addContact(name, number));
-    setName('');
-    setNumber('');
-  };
+   const isNumberExist = contacts.find(
+     contact => contact.number.replace(/\D/g, '') === number.replace(/\D/g, '')
+   );
+
+   if (isNumberExist) {
+window.alert(
+       'Alert',
+       `Number ${number} is already in contacts!`,
+       'Ok'
+     );
+     return;
+   }
+
+   dispatch(addContact(name, number));
+   setName('');
+   setNumber('');
+ };
+
 
   return (
-    <div>
-      <form onSubmit={handlerSubmit}>
-        <h2>Name</h2>
-        <input
-          type="text"
-          name="name"
-          pattern="^[a-zA-Zа-яА-Я]+([' \-][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*$"
-          title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan "
-          required
-          value={name}
-          onChange={hundlerChangeName}
-        />
-        <h2>Number</h2>
-        <input
-          type="tel"
-          name="number"
-          pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-          title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-          required
-          value={number}
-          onChange={handlerChangeNumber}
-        />
+    <form onSubmit={handleSubmit}>
+      <h2>Name</h2>
+      <input
+        type="text"
+        name="name"
+        pattern="^[a-zA-Zа-яА-Я]+([' \-][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*$"
+        title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+        required
+        value={name}
+        onChange={handleNameChange}
+      />
+      <h2>Number</h2>
+      <input
+        type="tel"
+        name="number"
+        pattern="^\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+        title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
+        required
+        value={number}
+        onChange={handleNumberChange}
+      />
 
-        <button type='submit'>Add contact</button>
-      </form>
-    </div>
+      <button type="submit">Add contact</button>
+    </form>
   );
 }

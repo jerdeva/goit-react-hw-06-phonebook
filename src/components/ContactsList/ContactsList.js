@@ -1,17 +1,30 @@
 import React from 'react';
 import ContactInfo from '../ContactInfo/ContactInfo';
+import { getContacts, getFilter } from 'redux/store';
+import {  useSelector } from 'react-redux';
+
 import List from './ContatctList.styled'
-import ItemOfList from './ContatctList.styled'
+// import ItemOfList from './ContatctList.styled'
+
+const filtredContact = (contacts, filter) => {
+  const correctFilter = filter.toLowerCase();
+  return contacts.filter(contact =>
+    contact.name.toLowerCase().includes(correctFilter)
+  );
+}
 
 
-export const ContactsList = ({ filterList, deleteContact }) => {
+export function ContactsList() {
+  const contacts = useSelector(getContacts);
+  const filter = useSelector(getFilter);
+
+  const showList = filtredContact(contacts, filter)
+
   return (
     <List>
-      {filterList.map(item => {
+      {showList.map(({ id, name, number }) => {
         return (
-          <ItemOfList key={item.id}>
-            <ContactInfo contact={item} onDelete={deleteContact} />
-          </ItemOfList>
+          <ContactInfo key={id} contact={{ id, name, number }}/>
         );
       })}
     </List>

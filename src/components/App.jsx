@@ -6,13 +6,13 @@ import { ContactsList } from './ContactsList/ContactsList'
 // import React from 'react';
 
 
-const localStInitialContacts = () => {
-        const savedContacts = localStorage.getItem('saved-contacts');
-    if (savedContacts !== null) {
-      return  JSON.parse(savedContacts)
-    }
-    return []
-}
+// const localStInitialContacts = () => {
+//         const savedContacts = localStorage.getItem('saved-contacts');
+//     if (savedContacts !== null) {
+//       return  JSON.parse(savedContacts)
+//     }
+//     return []
+// }
 
 
 export const App = () => {    
