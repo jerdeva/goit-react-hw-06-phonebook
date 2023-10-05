@@ -3,6 +3,7 @@ import React from 'react';
 import * as Yup from 'yup';
 import { FormPhB, LabelStyle, ErrorMessageStyle } from './FormPhonebook.styled';
 import BtnStyle from './FormPhonebook.styled';
+// import { useSelector } from 'react-redux';
 
 const SettingForms = Yup.object().shape({
   name: Yup.string()
@@ -26,6 +27,8 @@ const SettingForms = Yup.object().shape({
 });
 
 export const FormPhonebook = ({ onAdd }) => {
+
+
   return (
     <Formik
       initialValues={{
