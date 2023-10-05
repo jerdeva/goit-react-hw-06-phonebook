@@ -2,7 +2,7 @@ import { createSlice, nanoid } from '@reduxjs/toolkit';
 
 const initialState = [];
 
-const contactSlice = createSlice({
+const contactsSlice = createSlice({
   name: 'contacts',
   initialState: initialState,
   reducers: {
@@ -20,7 +20,12 @@ const contactSlice = createSlice({
         };
       },
     },
+    deleteContact: (state, action) => {
+      const index = state.findIndex(contact => contact.id === action.payload);
+      state.splice(index, 1);
+    },
   },
 });
 
-export const contactsReducer = contactSlice.reducer;
+export const { addContact, deleteContact } = contactsSlice.actions;
+export const contactsReducer = contactsSlice.reducer;

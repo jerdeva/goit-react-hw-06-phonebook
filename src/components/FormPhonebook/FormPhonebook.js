@@ -1,61 +1,77 @@
-import { Formik, Field } from 'formik';
-import React from 'react';
-import * as Yup from 'yup';
-import { FormPhB, LabelStyle, ErrorMessageStyle } from './FormPhonebook.styled';
-import BtnStyle from './FormPhonebook.styled';
-// import { useSelector } from 'react-redux';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { addContact } from '../../redux/contactsSlice';
 
-const SettingForms = Yup.object().shape({
-  name: Yup.string()
-    .test(
-      'name',
-      "Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan",
-      value =>
-        /^[a-zA-Zа-яА-Я]+((['][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$/.test(value)
-    )
-    .required('Required'),
-  number: Yup.string()
-    .test(
-      'number',
-      'Phone number must be digits and can contain spaces, dashes, parentheses and can start with +',
-      value =>
-        /\+?\d{1,4}?[ .\-\s]?\(?\d{1,3}?\)?[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,9}/.test(
-          value
-        )
-    )
-    .required('Required'),
-});
 
-export const FormPhonebook = ({ onAdd }) => {
+export function FormPhonebook() {
+  const dispatch = useDispatch;
+  const contacts = useSelector(state => state.contacts);
 
+  const [name, setName] = useState('');
+  const [number, setNumber] = useState('');
+
+  const hundlerChangeName = event => {
+    setName(event.target.value);
+  };
+
+  const handlerChangeNumber = event => {
+    setNumber(event.target.value);
+  };
+
+  const handlerSubmit = event => {
+    event.preventDefault();
+
+    if (name.trim() === '' || number.trim === '') {
+      return;
+    }
+
+    const isExistName = contacts.find(
+      contact => contact.name.toLowerCase() === name.toLowerCase()
+    );
+    if (isExistName) {
+      alert(`${name} is already in Phonebook.`);
+      return;
+    }
+
+    const isExistNumber = contacts.find(
+      contact => contact.number.replace(/\D/g, '') === number.replace(/\D/g, '')
+    );
+    if (isExistNumber) {
+      alert(`${number} is already in Phonebook.`);
+      return;
+    }
+
+    dispatch(addContact(name, number));
+    setName('');
+    setNumber('');
+  };
 
   return (
-    <Formik
-      initialValues={{
-        name: '',
-        number: '',
-      }}
-      onSubmit={(values, actions) => {
-        onAdd(values);
-        actions.resetForm();
-      }}
-      validationSchema={SettingForms}
-    >
+    <div>
+      <form onSubmit={handlerSubmit}>
+        <h2>Name</h2>
+        <input
+          type="text"
+          name="name"
+          pattern="^[a-zA-Zа-яА-Я]+([' \-][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*$"
+          title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan "
+          required
+          value={name}
+          onChange={hundlerChangeName}
+        />
+        <h2>Number</h2>
+        <input
+          type="tel"
+          name="number"
+          pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+          title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
+          required
+          value={number}
+          onChange={handlerChangeNumber}
+        />
 
-      
-      <FormPhB>
-        <LabelStyle>
-          Name:
-          <Field name="name" type="text" placeholder="Enter name" />
-          <ErrorMessageStyle component={'h5'} name="name" />
-        </LabelStyle>
-        <LabelStyle>
-          Number:
-          <Field name="number" type="tell" placeholder="Enter phone number" />
-          <ErrorMessageStyle component={'h5'} name="number" />
-        </LabelStyle>
-        <BtnStyle type="submit">Add contact</BtnStyle>
-      </FormPhB>
-    </Formik>
+        <button type='submit'>Add contact</button>
+      </form>
+    </div>
   );
-};
+}

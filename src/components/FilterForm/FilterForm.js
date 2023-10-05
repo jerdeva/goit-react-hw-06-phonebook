@@ -7,7 +7,7 @@ import { getContacts, getFilter } from 'redux/store';
 
 
 
-export const FilterForm = () => {
+export function FilterForm ()  {
   const dispatch = useDispatch();
 
      const searchContact = event => {
@@ -24,7 +24,7 @@ export const FilterForm = () => {
           placeholder="Enter name"
           value={useSelector(getFilter)}
           onChange={searchContact}
-          disabled={useSelector(getContacts).length ===0}
+          disabled={useSelector(getContacts).length === 0} 
         />
       </LabelSt>
     </Wrapper>
