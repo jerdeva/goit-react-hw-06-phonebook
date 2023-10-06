@@ -20,7 +20,6 @@ export const App = () => {
     return (
       <div>
         <FormPhonebook/>
-        <h2>Contacts:</h2>
         <FilterForm/>
         <ContactsList/>
       </div>

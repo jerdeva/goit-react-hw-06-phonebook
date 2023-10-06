@@ -2,9 +2,7 @@ import React from 'react';
 import ContactInfo from '../ContactInfo/ContactInfo';
 import { getContacts, getFilter } from 'redux/store';
 import {  useSelector } from 'react-redux';
-
 import List from './ContatctList.styled'
-// import ItemOfList from './ContatctList.styled'
 
 const filtredContact = (contacts, filter) => {
   const correctFilter = filter.toLowerCase();
