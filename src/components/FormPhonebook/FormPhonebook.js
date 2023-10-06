@@ -1,6 +1,13 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addContact } from '../../redux/contactsSlice';
+import {
+  BtnStyle,
+  FormPhB,
+  LabelStyle,
+  InputSt,
+  Wrapper,
+} from './FormPhonebook.styled';
 
 
 export function FormPhonebook() {
@@ -58,29 +65,33 @@ window.alert(
 
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Name</h2>
-      <input
-        type="text"
-        name="name"
-        pattern="^[a-zA-Zа-яА-Я]+([' \-][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*$"
-        title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-        required
-        value={name}
-        onChange={handleNameChange}
-      />
-      <h2>Number</h2>
-      <input
-        type="tel"
-        name="number"
-        pattern="^\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-        title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-        required
-        value={number}
-        onChange={handleNumberChange}
-      />
+    <Wrapper>
+      <h1>Phonebook</h1>
+      <FormPhB onSubmit={handleSubmit}>
+        <LabelStyle>Name</LabelStyle>
+        <InputSt
+          type="text"
+          name="name"
+          pattern="^[a-zA-Zа-яА-Я]+([' \-][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*$"
+          title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+          required
+          value={name}
+          onChange={handleNameChange}
+        />
+        <LabelStyle>Number</LabelStyle>
+        <InputSt
+          type="tel"
+          name="number"
+          pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+          title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
+          required
+          value={number}
+          onChange={handleNumberChange}
+        />
 
-      <button type="submit">Add contact</button>
-    </form>
+        <BtnStyle type="submit">Add contact</BtnStyle>
+      </FormPhB>
+    </Wrapper>
   );
+      
 }
