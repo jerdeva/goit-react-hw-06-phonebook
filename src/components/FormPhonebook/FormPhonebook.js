@@ -34,11 +34,11 @@ export function FormPhonebook() {
      return;
    }
 
-   const isContactExist = contacts.find(
+   const isNameExist = contacts.find(
      contact => contact.name.toLowerCase() === name.toLowerCase()
    );
 
-   if (isContactExist) {
+   if (isNameExist) {
   window.alert(
        'Alert',
        `Contact with name ${name} already exists!`,
