@@ -1,8 +1,14 @@
 // import Wrapper from './ContactInfo.styled'
 import { useDispatch } from 'react-redux';
 import { deleteContact } from '../../redux/contactsSlice';
-import { BsXCircleFill } from "react-icons/bs";
-import { ButtonStyle, ItemsStyled, Paragrapher } from './ContactInfo.styled';
+// import { BsXCircleFill } from "react-icons/bs";
+import {
+  ButtonStyle,
+  ItemsStyled,
+  Paragrapher,
+  Span,
+} from './ContactInfo.styled';
+import { ReactComponent as Delete } from '../icons/Delete.svg';
 
 
 
@@ -16,11 +22,18 @@ function ContactInfo({ contact }) {
 
   return (
     <ItemsStyled>
+      <Paragrapher>
+        <Span>Name: </Span>
+        {contact.name}
+      </Paragrapher>
+      <Paragrapher>
+        <Span>Number: </Span>
+         {contact.number}
+      </Paragrapher>
       <ButtonStyle onClick={deliteContacts}>
-        <BsXCircleFill />
+        {/* <BsXCircleFill />         */}
+        <Delete />
       </ButtonStyle>
-      <Paragrapher>Name: {contact.name}</Paragrapher>
-      <Paragrapher>Number: {contact.number}</Paragrapher>
     </ItemsStyled>
   );
 };

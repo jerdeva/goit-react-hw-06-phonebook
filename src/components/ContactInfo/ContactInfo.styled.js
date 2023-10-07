@@ -22,14 +22,20 @@ padding: 8px;
 background-color: lightyellow;
 display: flex;
 flex-direction: column;
+align-items:flex-start; 
 `
 
 export const Paragrapher = styled.p`
 color: green;
 font-size: 20px;
-font-weight: 500;
-margin: 12px 0;
+font-weight: 300;
+margin: 8px 0;
 `
+
+export const Span = styled.span`
+color: black
+`
+
 
 
 
