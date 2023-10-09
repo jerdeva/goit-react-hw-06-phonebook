@@ -9,62 +9,50 @@ import {
   Wrapper,
 } from './FormPhonebook.styled';
 
-
-
-
 export function FormPhonebook() {
- const dispatch = useDispatch();
- const contacts = useSelector(state => state.contacts);
+  const dispatch = useDispatch();
+  const contacts = useSelector(state => state.contacts);
 
- const [name, setName] = useState('');
- const [number, setNumber] = useState('');
+  const [name, setName] = useState('');
+  const [number, setNumber] = useState('');
 
- const handleNameChange = event => {
-   setName(event.target.value);
- };
+  const handleNameChange = event => {
+    setName(event.target.value);
+  };
 
- const handleNumberChange = event => {
-   setNumber(event.target.value);
- };
+  const handleNumberChange = event => {
+    setNumber(event.target.value);
+  };
 
- const handleSubmit = event => {
-   event.preventDefault();
+  const handleSubmit = event => {
+    event.preventDefault();
 
-   if (name.trim() === '' || number.trim() === '') {
-     return;
-   }
+    if (name.trim() === '' || number.trim() === '') {
+      return;
+    }
 
-   const isNameExist = contacts.find(
-     contact => contact.name.toLowerCase() === name.toLowerCase()
-   );
+    const isNameExist = contacts.find(
+      contact => contact.name.toLowerCase() === name.toLowerCase()
+    );
 
-   if (isNameExist) {
-  window.alert(
-       'Alert',
-       `Contact with name ${name} already exists!`,
-       'Ok'
-     );
-     return;
-   }
+    if (isNameExist) {
+      window.alert(`Contact with name ${name} already exists!`);
+      return;
+    }
 
-   const isNumberExist = contacts.find(
-     contact => contact.number.replace(/\D/g, '') === number.replace(/\D/g, '')
-   );
+    const isNumberExist = contacts.find(
+      contact => contact.number.replace(/\D/g, '') === number.replace(/\D/g, '')
+    );
 
-   if (isNumberExist) {
-window.alert(
-       'Alert',
-       `Number ${number} is already in contacts!`,
-       'Ok'
-     );
-     return;
-   }
+    if (isNumberExist) {
+      window.alert(`Number ${number} is already in contacts!`);
+      return;
+    }
 
-   dispatch(addContact(name, number));
-   setName('');
-   setNumber('');
- };
-
+    dispatch(addContact(name, number));
+    setName('');
+    setNumber('');
+  };
 
   return (
     <Wrapper>
@@ -95,5 +83,4 @@ window.alert(
       </FormPhB>
     </Wrapper>
   );
-      
 }
